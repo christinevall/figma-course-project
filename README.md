@@ -16,6 +16,8 @@ No GitHub account needed.
 
 **Just want to look?** The Storybook of folder 04 is online: https://christinevall.github.io/figma-course-project/
 
+**The Figma file** the code was built from: [Hand-made Figma to Code](https://www.figma.com/community/file/1681259703873319741/01-step-1-hand-made-figma-to-code). Click **Open in Figma** and you get your own copy in your Drafts, free to change. You need a (free) Figma account.
+
 ## 2. Open a lesson
 
 | Folder | What it is | How to open it |
