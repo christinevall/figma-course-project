@@ -474,8 +474,11 @@ a {
 .button--primary:active { background: var(--action-primary-pressed); }  /* while clicking */
 
 /* variant = secondary: outlined */
+/* Figma: stroke 3px, position "Inside". A CSS border would sit outside the
+   padding and make the button 6px taller than in Figma. An inset box-shadow
+   draws the line inside, like Figma does, so the button stays 56px tall. */
 .button--secondary {
-  border: 3px solid var(--action-primary-default);   /* 3px: raw in Figma */
+  box-shadow: inset 0 0 0 3px var(--action-primary-default);   /* 3px: raw in Figma */
   color: var(--action-secondary-text);
 }
 .button--secondary:hover  { background: var(--action-secondary-hover); }
@@ -493,15 +496,30 @@ a {
   background: var(--surface-default);
 }
 
+/* Figma component "Logo": a circle (ellipse) filled with text/accent.
+   Built in CSS, so the colour comes from the variable. */
 .navigation__logo {
-  width: 48px;    /* raw in Figma */
-  height: 48px;   /* raw in Figma */
+  display: block;
+  width: 48px;           /* raw in Figma */
+  height: 48px;          /* raw in Figma */
+  border-radius: 50%;    /* a circle */
+  background: var(--text-accent);
 }
 
+/* Figma frame "nav-items": the links group, then the button */
 .navigation__items {
   display: flex;
   align-items: center;
-  gap: 54px;      /* raw in Figma */
+  gap: 54px;      /* raw in Figma: space between the links and the button */
+}
+
+/* Figma frame "links": 209 wide, the 3 links spread out with
+   "space between" (that makes about 36px between them) */
+.navigation__links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 209px;   /* raw in Figma */
 }
 
 .navigation__link {
@@ -715,8 +733,27 @@ a {
     gap: var(--space-700);   /* tablet uses the variable (48), desktop has raw 54 */
   }
 
+  .hero {
+    padding: var(--space-600) var(--space-500);   /* 32 top/bottom, 24 left/right */
+  }
+
+  .project-card {
+    padding: var(--space-500);   /* 24 all round */
+  }
   .project-card__content {
     gap: var(--space-400);   /* tablet uses the variable (16) */
+  }
+
+  .about {
+    padding: 56px 41px 56px 40px;   /* top right bottom left: raw in Figma */
+  }
+  .about .container {
+    align-items: flex-start;   /* text and photo line up at the top */
+    gap: 56px;                 /* raw in Figma */
+  }
+
+  .skills {
+    padding: var(--space-700) var(--space-500);   /* 48 top/bottom, 24 left/right */
   }
 }
 
@@ -769,14 +806,15 @@ a {
     border: 1px solid var(--border-default);   /* my choice */
     border-radius: var(--radius-md);
   }
-
-  .hero {
-    padding: var(--space-600) var(--space-500);   /* 32 top/bottom, 24 left/right */
+  .navigation__menu[open] .navigation__links {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-500);
+    width: auto;
   }
 
-  .project-card {
-    padding: var(--space-500);
-  }
+  /* Hero and ProjectCard padding: same as tablet, nothing changes here */
+
   .project-card .container {
     flex-direction: column;   /* image above text */
   }

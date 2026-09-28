@@ -18,18 +18,20 @@
 
   <!-- Figma component: Navigation -->
   <header class="navigation">
-    <a href="#top" aria-label="Home">
-      <img class="navigation__logo" src="images/logo.svg" alt="" width="48" height="48">
-    </a>
+    <!-- Figma component: Logo. A circle filled with text/accent, so it's
+         built in CSS, not an image file -->
+    <a class="navigation__logo" href="#top" aria-label="Home"></a>
 
     <nav aria-label="Main">
-      <!-- desktop and tablet -->
-      <ul class="navigation__items">
-        <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
-        <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
-        <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
-        <li><a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a></li>
-      </ul>
+      <!-- desktop and tablet. Figma frame "nav-items": the "links" frame + the Button -->
+      <div class="navigation__items">
+        <ul class="navigation__links">
+          <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
+          <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
+          <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
+        </ul>
+        <a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a>
+      </div>
 
       <!-- mobile: a menu that opens on click, no JavaScript needed -->
       <details class="navigation__menu">
@@ -40,12 +42,14 @@
             <path d="M2.99992 21.9005L29.9022 21.9002" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </summary>
-        <ul class="navigation__items">
-          <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
-          <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
-          <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
-          <li><a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a></li>
-        </ul>
+        <div class="navigation__items">
+          <ul class="navigation__links">
+            <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
+            <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
+            <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
+          </ul>
+          <a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a>
+        </div>
       </details>
     </nav>
   </header>

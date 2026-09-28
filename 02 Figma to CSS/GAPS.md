@@ -34,6 +34,37 @@ the earlier state.
   code: the exported SVG file had the colour baked in. The icon's SVG code now sits in `index.html`,
   with its colour set by the CSS, so it turns light in dark mode. `images/menu.svg` removed.
 
+## Checked against Figma again on 2026-09-28 (Figma Console MCP, read only)
+
+All 3 frames read node by node (auto layout, padding, gaps, bound variables, text styles) and
+every variable compared with `style.css`. **Variables: no drift** (colours, dark mode, space,
+radius, font sizes in all 3 modes). Layout drift found and fixed in the code:
+
+- **Nav links:** in Figma the 3 links sit in their own `links` frame (209 wide, space between),
+  and the 54 / 48 gap is only between that frame and the button. The code had 54 between every
+  item. Now `.navigation__links` inside `.navigation__items`, like Figma.
+- **Logo:** in Figma it's a `Logo` component, an ellipse filled with `text/accent`. Now a CSS
+  circle using `var(--text-accent)`. `images/logo.svg` (orange baked in) removed.
+- **Tablet (md) layout** was the desktop one in the code. Now as in Figma: Hero padding 32 / 24,
+  ProjectCard padding 24, About padding 56 / 41 / 56 / 40 with gap 56 and top-aligned, Skills
+  padding 48 / 24.
+- **Secondary button** was 62px tall, Figma 56. Figma's 3px stroke is *inside*; a CSS border sits
+  outside. Now an inset `box-shadow`, so 56px.
+- Measured in the browser at 1424 / 800 / 375: nav 104 / 88 / 80, hero 307 / 268 / 218 (Figma
+  307 / 269 / 219), desktop project card 393, About 672 (Figma 671), Skills 379 (378), About and
+  photo 332 / 332 on tablet, no sideways scroll, mobile menu opens.
+- Still different on purpose: the project cards are shorter on tablet and mobile because the
+  demo text is shorter than Figma's "I run moonlearning.io…" copy.
+
+Found in Figma, **not fixed** (your call):
+
+- **About portrait** doesn't fill its `media` slot on any frame (image 559 × 519 in a 553 × 553
+  slot on desktop, similar on tablet / mobile). That's the grey strip under the photo in Figma.
+  The code fills the square with `object-fit: cover`, so the code looks right and Figma doesn't.
+- **Desktop footer** instance is fixed at 67 high, its content is 75, so Figma clips it. The code
+  is 75.
+- **Desktop footer text** says "© 2026 Christine Vallaure"; code keeps "Your Name" (demo content).
+
 ## Still open in Figma (not fixed: they change the look, your call)
 
 1. **Raw numbers that don't match a variable** (kept as they are in the CSS, marked "raw in Figma"):
@@ -65,8 +96,8 @@ the earlier state.
 
 ## Known issues in the code
 
-- **The logo** has its orange (`#FF6330`) baked into the SVG file. It's the same in both modes,
-  so it's fine. It isn't linked to `color/brand/500`.
+- ~~The logo has its orange baked into the SVG file.~~ Fixed 2026-09-28: the logo is now a CSS
+  circle using `text/accent`.
 - **Dark mode images:** the project screenshots stay light. Expected, not a bug.
 - **px, not rem:** px so beginners can compare with Figma 1:1. For real projects, font sizes in
   rem respect the browser's text-size setting.
