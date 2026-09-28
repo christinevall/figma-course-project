@@ -1,0 +1,27 @@
+# On every push: zip each lesson folder again and replace the ZIPs on the release,
+# so the download links in the README always give the newest files.
+name: Lesson ZIPs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  zips:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Zip each lesson folder
+        run: |
+          mkdir -p out
+          for f in "02 Figma to CSS" "03 Auto Layout to code example" "04 Figma to Design System"; do
+            git archive --format=zip --prefix="$f/" -o "out/${f// /-}.zip" "HEAD:$f"
+          done
+      - name: Replace the ZIPs on the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v1 out/*.zip --clobber
