@@ -18,7 +18,9 @@ jobs:
       - name: Zip each lesson folder
         run: |
           mkdir -p out
-          for f in "02 Figma to CSS" "03 Auto Layout to code example" "04 Figma to Design System"; do
+          # Every folder that starts with a number, e.g. "01 Starting with MCP"
+          for d in [0-9][0-9]*/; do
+            f="${d%/}"
             git archive --format=zip --prefix="$f/" -o "out/${f// /-}.zip" "HEAD:$f"
           done
       - name: Replace the ZIPs on the release
