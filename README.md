@@ -4,11 +4,17 @@ The example files for the course. One folder per lesson. You can look, change an
 
 ## 1. Download
 
-1. Click the green **Code** button at the top of this page.
-2. Click **Download ZIP**.
-3. Double-click the ZIP to unzip it. Move the folder somewhere you'll find it again (e.g. Documents).
+Click the lesson you need. The ZIP downloads straight away:
+
+- [**04 Figma to Design System**](https://github.com/christinevall/figma-course-project/releases/latest/download/04-Figma-to-Design-System.zip)
+- [02 Figma to CSS](https://github.com/christinevall/figma-course-project/releases/latest/download/02-Figma-to-CSS.zip)
+- [03 Auto Layout to code example](https://github.com/christinevall/figma-course-project/releases/latest/download/03-Auto-Layout-to-code-example.zip)
+
+Double-click the ZIP to unzip it. Move the folder somewhere you'll find it again (e.g. Documents).
 
 No GitHub account needed.
+
+**Just want to look?** The Storybook of folder 04 is online: https://christinevall.github.io/figma-course-project/
 
 ## 2. Open a lesson
 

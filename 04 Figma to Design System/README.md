@@ -1,20 +1,18 @@
-# 02 · Figma to a React design system
+# 04 · Figma to a React design system
 
 A one-page portfolio designed by hand in Figma becomes a small **design system of React components**, with Storybook on top, ready to prototype with through the Storybook MCP.
 
-This folder began as a copy of *01 · Figma to code and back* (plain HTML and CSS). Same Figma file, same tokens, same component names. Only the code is now React.
-
 | | |
 | --- | --- |
-| **Live Storybook** | [Figma to design system and back](https://christinevall.github.io/figma-code-round-trip/figma-to-ds-and-back/): the earlier HTML version. This React version runs locally only, for now |
+| **Live Storybook** | [https://christinevall.github.io/figma-course-project/](https://christinevall.github.io/figma-course-project/): every component, in the browser. Nothing to install |
 | **Figma, step 1** | [Handmade Figma to Code](https://www.figma.com/community/file/1681259703873319741): the hand-made file the code was built from |
-| **Figma, step 2** | [Code DS to Figma](https://www.figma.com/community/file/1681259233728578359): the new file built from the code (HTML version, same names) |
+| **Figma, step 2** | [Code DS to Figma](https://www.figma.com/community/file/1681259233728578359): the new file built from the code, same names |
 
 ## Start here
 
 | You want to… | Go to |
 | --- | --- |
-| See the components, live | [Live Storybook](https://christinevall.github.io/figma-code-round-trip/figma-to-ds-and-back/) → *Introduction* |
+| See the components, live | [Live Storybook](https://christinevall.github.io/figma-course-project/) → *Introduction* |
 | Compare the two Figma files | Step 1 and step 2 above: 30 breakpoint variants by hand, 3 generated from code |
 | Understand how it is built, no code knowledge needed | [In plain words](#in-plain-words), then [the stack](#the-stack-tool-by-tool) |
 | See what the AI found unclear in the hand-made file | [What the AI noticed](#what-the-ai-noticed-in-the-hand-made-figma-file) |
@@ -25,9 +23,8 @@ This folder began as a copy of *01 · Figma to code and back* (plain HTML and CS
 1. **Start:** a one-page portfolio designed by hand in Figma, with variables,
    text styles, components and three page frames (desktop, tablet, mobile).
 2. **Step 1:** Claude read that file through the Figma Console MCP and wrote
-   plain HTML, CSS and a little JavaScript, plus Storybook. In this folder that
-   code was then rebuilt as React components (24 Sep 2026). Along the way it
-   listed what was unclear in the Figma file (see below).
+   React components, plus Storybook. Along the way it listed what was unclear
+   in the Figma file (see below).
 3. **Step 2:** the code became the source of truth. Claude built a new, empty
    Figma file from it: variables with modes, text styles and components, all
    bound to variables.
@@ -168,9 +165,8 @@ purpose, to show in the demo.
 
 ## Step 2 · code → a new Figma file
 
-Built from the HTML version on 13 Sep. The names are the same in the React
-version, so the file still matches, but it has not been rebuilt from the React
-code. One difference: it still has `action/secondary/border`.
+Same names as the code. One difference: the Figma file still has
+`action/secondary/border`, which the code no longer uses.
 
 ### What's in the file
 
@@ -268,7 +264,7 @@ lost their desktop-only media queries. Nothing looks different.
   measured. Accessibility: the a11y panel runs in Storybook, no full audit.
 - The page renders with JavaScript. A real site would output static HTML
   (for example with Next.js or Astro).
-- **React version, 24 Sep 2026:** checked by building (`npm run build`,
+- **Checked on 24 Sep 2026** by building (`npm run build`,
   `npm run build-storybook`), by screenshots at desktop and mobile, the mobile
   menu, and the Storybook MCP's component list. Not checked: dark mode page by
   page, tablet width, and prototyping through the MCP from a fresh chat.
