@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- To see the dark mode: change the next line to  <html lang="en" data-theme="dark"> -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>James Jones · Portfolio</title>
+
+  <!-- The font. Figma variable font-family/sans = Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+
+  <!-- The one CSS file: all variables and all styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Figma component: Navigation -->
+  <header class="navigation">
+    <a href="#top" aria-label="Home">
+      <img class="navigation__logo" src="images/logo.svg" alt="" width="48" height="48">
+    </a>
+
+    <nav aria-label="Main">
+      <!-- desktop and tablet -->
+      <ul class="navigation__items">
+        <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
+        <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
+        <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
+        <li><a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a></li>
+      </ul>
+
+      <!-- mobile: a menu that opens on click, no JavaScript needed -->
+      <details class="navigation__menu">
+        <summary aria-label="Menu">
+          <!-- The Figma "Menu" icon, as code, so its colour comes from the CSS -->
+          <svg class="navigation__menu-icon" width="36" height="29" viewBox="0 0 36 29" fill="none" aria-hidden="true">
+            <path d="M11.5 9L29.7995 9.00032" stroke-width="2" stroke-linecap="round"/>
+            <path d="M2.99992 21.9005L29.9022 21.9002" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <ul class="navigation__items">
+          <li><a class="navigation__link font-navigation-md" href="#about">about.</a></li>
+          <li><a class="navigation__link font-navigation-md" href="#work">work.</a></li>
+          <li><a class="navigation__link font-navigation-md" href="#skills">blog.</a></li>
+          <li><a class="button button--primary font-button-md" href="mailto:hello@example.com">Contact</a></li>
+        </ul>
+      </details>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- Figma component: Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="font-caption-md">James Jones</p>
+        <h1 class="font-display-md">UX. UI.<br>Agentic AI.</h1>
+      </div>
+    </section>
+
+    <!-- Figma component: ProjectCard × 4. Every second one is grey (--raised) -->
+    <div id="work">
+
+      <article class="project-card">
+        <div class="container">
+          <img class="project-card__media" src="images/project-moonblocks.png" alt="Screens of the moonblocks website">
+          <div class="project-card__content">
+            <h2 class="font-headline-md">moonblocks</h2>
+            <p class="font-body-md-default">A hands-on learning platform for UI design, Figma and AI-powered product building. It helps people move from overthinking to designing and building.</p>
+            <a class="project-card__link font-link-md" href="#">find out more →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card project-card--raised">
+        <div class="container">
+          <img class="project-card__media" src="images/project-alpine-tracker.png" alt="Alpine Tracker app with a list of hiking routes">
+          <div class="project-card__content">
+            <h2 class="font-headline-md">Alpine Tracker</h2>
+            <p class="font-body-md-default">A route planner for hikers. Filter trails by difficulty, height and time, and save the ones you want to walk next.</p>
+            <a class="project-card__link font-link-md" href="#">find out more →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="container">
+          <img class="project-card__media" src="images/project-soft-agents.png" alt="Diagram of a lead agent and three helper agents">
+          <div class="project-card__content">
+            <h2 class="font-headline-md">Soft Agents</h2>
+            <p class="font-body-md-default">A small team of AI agents, each with one clear job, working from the same shared context files.</p>
+            <a class="project-card__link font-link-md" href="#">find out more →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card project-card--raised">
+        <div class="container">
+          <img class="project-card__media" src="images/project-web-template.png" alt="Preview of a portfolio website template">
+          <div class="project-card__content">
+            <h2 class="font-headline-md">Web Template</h2>
+            <p class="font-body-md-default">A ready-made portfolio template. Swap in your own text and images and publish.</p>
+            <a class="project-card__link font-link-md" href="#">find out more →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Figma component: About -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about__content">
+          <h2 class="font-headline-lg">About me</h2>
+          <p class="font-body-md-default">Welcome to my portfolio! I'm Kim, a passionate graphic UI designer dedicated to crafting visual experiences that resonate with users. My goal is to design interfaces that not only grab attention but also facilitate smooth navigation. I carefully select colour palettes that evoke the right emotions and typography that enhances clarity. I believe that intuitive design is key to guiding users effortlessly on their journey.</p>
+          <a class="button button--secondary font-button-md" href="mailto:hello@example.com">Contact</a>
+        </div>
+        <img class="about__media" src="images/about-portrait.png" alt="Portrait of Kim">
+      </div>
+    </section>
+
+    <!-- Figma component: Skills, with 3 × SkillItem -->
+    <section class="skills" id="skills">
+      <div class="container">
+        <h2 class="font-headline-lg">Skills</h2>
+        <ul class="skills__group">
+          <li class="skill-item">
+            <h3 class="font-headline-sm">Headline</h3>
+            <p class="font-body-md-default">A basic understanding of HTML and CSS helps me align design with the code effectively throughout the handoff.</p>
+          </li>
+          <li class="skill-item">
+            <h3 class="font-headline-sm">Headline</h3>
+            <p class="font-body-md-default">A basic understanding of HTML and CSS helps me align design with the code effectively throughout the handoff.</p>
+          </li>
+          <li class="skill-item">
+            <h3 class="font-headline-sm">Headline</h3>
+            <p class="font-body-md-default">A basic understanding of HTML and CSS helps me align design with the code effectively throughout the handoff.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Figma component: Footer -->
+  <footer class="footer font-body-md-default">
+    <p>© 2026 Your Name</p>
+    <a href="#">Imprint</a>
+    <a href="mailto:hello@example.com">Contact</a>
+  </footer>
+
+</body>
+</html>

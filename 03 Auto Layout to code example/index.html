@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog</title>
+  <meta name="description" content="Articles on art, usability, Figma and typography in UI design.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="logo" href="/">Blog</a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="site-nav__list">
+        <li><a href="#">about</a></li>
+        <li><a href="#">work</a></li>
+        <li><a href="#" aria-current="page">blog</a></li>
+      </ul>
+      <a class="button" href="#">
+        <svg class="button__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <g stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linejoin="round">
+            <path d="M23.5 1.5L0.5 11L9.5 14.5L23.5 1.5Z"/>
+            <path d="M23.5 1.5L19.5 20L9.5 14.5L23.5 1.5Z"/>
+            <path d="M9.5 14.5V22.5L13 16.5"/>
+          </g>
+        </svg>
+        Subscribe
+      </a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 class="hero__title" id="hero-title">Hello world</h1>
+      <p class="hero__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. proident, sunt in culpa qui officia</p>
+    </section>
+
+    <section class="card-group" aria-label="Articles">
+      <article class="card">
+        <img class="card__img" src="images/art-workshop.png" alt="" width="684" height="389">
+        <div class="card__content">
+          <h2 class="card__title">Art Workshop</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="card__img" src="images/usability-principles.png" alt="" width="684" height="389">
+        <div class="card__content">
+          <h2 class="card__title">Usability Principles</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="card__img" src="images/figma-masterclass.png" alt="" width="684" height="389" loading="lazy">
+        <div class="card__content">
+          <h2 class="card__title">Figma Masterclass</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="card__img" src="images/typography-in-ui-design.png" alt="" width="684" height="389" loading="lazy">
+        <div class="card__content">
+          <h2 class="card__title">Typography in UI Design</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="card__img" src="images/art-workshop.png" alt="" width="684" height="389" loading="lazy">
+        <div class="card__content">
+          <h2 class="card__title">Art Workshop</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img class="card__img" src="images/art-workshop.png" alt="" width="684" height="389" loading="lazy">
+        <div class="card__content">
+          <h2 class="card__title">Art Workshop</h2>
+          <p class="card__text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <address class="contact">
+      <h2 class="contact__title">Contact</h2>
+      <p class="contact__text">Lorem ipsum street<br>1234 Madrid<br>Spain</p>
+    </address>
+    <a class="site-footer__link" href="#">Terms &amp; Conditions</a>
+  </footer>
+</body>
+</html>

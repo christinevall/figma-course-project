@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Portfolio · a mini design system in React
+
+A playground for designers: a hand-made Figma file, turned into a small
+design system of **React components**, with Storybook on top.
+
+Built from one Figma file, read by Claude through the Figma Console MCP.
+React with TypeScript and plain CSS: every component is one folder with
+three files you can open and read, under **Code** on each Docs page.
+
+**Ready for prototyping.** The Storybook MCP runs at
+`http://localhost:6010/mcp`. An AI agent can ask Storybook which components
+exist and which props they take, and build new pages from them.
+
+## Figma → code
+
+| In Figma | In code | Where |
+| --- | --- | --- |
+| Variable collections | CSS custom properties | `src/tokens/tokens.css` |
+| Color modes light / dark | `data-theme="dark"` | Theme switch in the toolbar |
+| Text modes lg / md / sm | Media queries at 800px and 1280px | Viewport switch in the toolbar |
+| Text styles | `--text-*` font shorthands | `src/tokens/tokens.css` |
+| Component | A React component: `Button.tsx` | `src/components/Button/` |
+| Component properties | Props, e.g. `variant`, `label` | The Controls panel on each Docs page |
+| Component with 3 breakpoint variants | **One** responsive component | `src/components/` |
+| Button states as variants | `:hover`, `:active`, `:focus-visible` | `Button.module.css` |
+| Inside stroke | Inset box-shadow | `Button.module.css` |
+| Slot | An `image` prop | ProjectCard, About |
+| The page frames | Components only, no extra CSS | `src/pages/Portfolio/Portfolio.tsx` |
+
+## One component, three files
+
+| File | What it is | In Figma terms |
+| --- | --- | --- |
+| `Button.tsx` | The component and its props | The component and its properties panel |
+| `Button.module.css` | How it looks, only with tokens | Fills, strokes, auto layout, bound to variables |
+| `Button.stories.tsx` | The examples you see here | The variants laid out on the canvas |
+
+## The numbers
+
+- **62** Figma variables → **62** CSS custom properties
+- **11** text styles → **11** `--text-*` tokens
+- **10** components with **30** variants → **10** React components
+- **3** page frames → **1** page
+
+Start with **Foundations** to see the tokens, then **Components**, then **Pages / Portfolio**.

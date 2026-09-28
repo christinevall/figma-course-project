@@ -1,0 +1,50 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-400) var(--space-500);
+  border: 0;
+  border-radius: var(--radius-md);
+  font: var(--text-button-md);
+  letter-spacing: var(--text-button-md-tracking);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* primary */
+.primary {
+  background: var(--color-action-primary-default);
+  color: var(--color-action-primary-text);
+}
+.primary:hover,
+.primary[data-state='hover'] {
+  background: var(--color-action-primary-hover);
+}
+.primary:active,
+.primary[data-state='active'] {
+  background: var(--color-action-primary-pressed);
+}
+
+/* secondary
+   Figma draws a 3px "inside" stroke. An inset shadow does the same in CSS:
+   it doesn't make the button bigger, so both variants stay 56px tall. */
+.secondary {
+  background: transparent;
+  color: var(--color-action-secondary-text);
+  box-shadow: inset 0 0 0 3px var(--color-action-primary-default);
+}
+.secondary:hover,
+.secondary[data-state='hover'] {
+  box-shadow: inset 0 0 0 3px var(--color-action-primary-hover);
+}
+.secondary:active,
+.secondary[data-state='active'] {
+  box-shadow: inset 0 0 0 3px var(--color-action-primary-pressed);
+}
+
+/* focused: Figma's "Focus Outline" layer sits 4px outside the button, 2px thick */
+.button:focus-visible,
+.button[data-state='focused'] {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}

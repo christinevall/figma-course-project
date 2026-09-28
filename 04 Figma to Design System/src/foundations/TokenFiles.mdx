@@ -1,0 +1,107 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import variablesJson from '../../figma/variables.json?raw';
+import tokensCss from '../tokens/tokens.css?raw';
+import buttonCss from '../components/Button/Button.module.css?raw';
+
+<Meta title="Foundations/Token files" />
+
+# Token files · the real thing
+
+The colour chips on the **Tokens** page are drawn from two plain text files.
+This page shows them. A design token is just a **name** with a **value**,
+written down so that Figma, code and AI all use the same one.
+
+```
+Figma variables  →  variables.json  →  tokens.css  →  Button.module.css  →  what you see
+   (design)         (snapshot)         (tokens)       (component)
+```
+
+## Follow one token all the way
+
+The dark background of the primary button, in every step:
+
+| Step | Where | What it says |
+| --- | --- | --- |
+| 1 · Figma | Variables panel, collection **color** | `action/primary/default` → `color/neutral/800` (light) |
+| 2 · JSON | `figma/variables.json` | `"action/primary/default": ["→color/neutral/800", "→color/neutral/100"]` |
+| 3 · CSS token | `src/tokens/tokens.css` | `--color-action-primary-default: var(--color-neutral-800);` |
+| 4 · Component | `Button.module.css` | `background: var(--color-action-primary-default);` |
+| 5 · Browser | the screen | `#2C2C2C` |
+
+Change the value once in step 1 or 3, and every button changes. The names stay
+the same everywhere: `/` in Figma becomes `-` in CSS, with `--color-` in front.
+
+---
+
+## 1 · variables.json: the snapshot of Figma
+
+<a href="./files/figma/variables.json" target="_blank" rel="noreferrer">Open variables.json ↗</a> · in the project: `figma/variables.json`
+
+What the AI read from Figma through the Figma Console MCP. Nothing uses this
+file directly; it's the record of what Figma said.
+
+**How to read it**
+
+- Each **Figma collection** is a group: `color primitives`, `color`, `space primitives` …
+- `"modes"` lists the Figma modes. A list of two values means *light, dark*; three means *lg, md, sm*.
+- A value starting with `→` is an **alias**: it points to another variable, like in Figma.
+- A value like `"#ff6330"` or `16` is a **raw value**: a primitive.
+
+<Source code={variablesJson} language="json" dark />
+
+---
+
+## 2 · tokens.css: the tokens the browser uses
+
+<a href="./files/tokens/tokens.css" target="_blank" rel="noreferrer">Open tokens.css ↗</a> · in the project: `src/tokens/tokens.css`
+
+The same variables, written as **CSS custom properties** (CSS variables). This
+is the file every component reads from.
+
+**How to read it**
+
+- `--color-brand-500: #ff6330;` is one token: the **name** before the colon, the **value** after it.
+- `var(--color-neutral-800)` means "use that other token". That's the alias, in CSS.
+- `:root` holds the default values. `[data-theme="dark"]` overrides them for dark mode, like switching a Figma mode.
+- `@media (min-width: 800px)` changes font sizes from tablet up, like the Figma modes *sm / md / lg*.
+- `/* … */` are comments, notes for people. The browser ignores them.
+
+<Source code={tokensCss} language="css" dark />
+
+---
+
+## 3 · A component using the tokens
+
+`src/components/Button/Button.module.css`. No colour codes, no pixel values for
+spacing: only token names. That's what keeps Figma and code in sync.
+
+<Source code={buttonCss} language="css" dark />
+
+---
+
+## Worth knowing
+
+- **This JSON is a simple snapshot**, written for this project. Teams often keep
+  tokens in the standard **W3C design tokens format** (DTCG), which tools like
+  Tokens Studio and Style Dictionary read. The same token would look like this there:
+
+<Source
+  language="json"
+  dark
+  code={`{
+  "action": {
+    "primary": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.neutral.800}"
+      }
+    }
+  }
+}`}
+/>
+
+- **Here the AI wrote `tokens.css` once.** In a team, a tool (often **Style
+  Dictionary**) turns the JSON into CSS automatically whenever it changes. That
+  automatic route is called a **token pipeline**.
+- **Source of truth here: Figma.** If a value changes, it changes in Figma first,
+  then the files are updated.

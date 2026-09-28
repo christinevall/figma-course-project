@@ -1,0 +1,349 @@
+/* ==========================================================================
+   Blog — built from Figma "💪 Part 3: Responsive Design"
+   Mobile first. Breakpoints come from the frame min-widths in Figma:
+     Small  < 800px   (frame "Small",  390 wide)
+     Medium ≥ 800px   (frame "Medium", min 800 / max 1200)
+     Large  ≥ 1200px  (frame "Large",  min 1200)
+   ========================================================================== */
+
+/* Tokens ----------------------------------------------------------------- */
+:root {
+  --color-ink: #292929;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-page: #f4f4f4;
+  --color-accent: #ff642f;
+  --color-hero: #f2994a;
+
+  --font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --weight-regular: 400;
+  --weight-bold: 700;
+
+  --text-body: 1rem;       /* 16px */
+  --text-lead: 1.5rem;     /* 24px */
+  --text-title: 2.5rem;    /* 40px */
+  --text-logo: 4rem;       /* 64px */
+
+  --leading-heading: 1.5;
+  --leading-body: 1.7;
+  --leading-display: 1.6;
+
+  --space-2: 0.5rem;       /* 8px  */
+  --space-3: 1rem;         /* 16px */
+  --space-hero-gap: 0.9375rem; /* 15px */
+  --space-4: 1.5rem;       /* 24px */
+  --space-5: 2rem;         /* 32px */
+  --space-6: 2.5rem;       /* 40px */
+  --space-7: 3rem;         /* 48px */
+  --space-footer-y: 3.4375rem; /* 55px */
+
+  --shadow-card: 1.13px 1.51px 3.77px rgb(0 0 0 / 0.25);
+
+  --gutter: var(--space-5); /* header side padding */
+}
+
+@media (min-width: 800px) {
+  :root { --gutter: var(--space-7); }
+}
+
+/* Base ------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  background: var(--color-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, p, ul {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 10;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-white);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Header ----------------------------------------------------------------- */
+.site-header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-inline: var(--gutter);
+  background: var(--color-white);
+}
+
+.logo {
+  font-size: var(--text-logo);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-display);
+  text-decoration: none;
+}
+
+/* Hamburger: Small only */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2.8125rem;  /* 45px */
+  height: 2.8125rem;
+  padding: 0.4375rem 0; /* 7px — puts the lines where Figma has them */
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.menu-toggle__line {
+  display: block;
+  height: 3px;
+  background: currentColor;
+}
+
+/* Nav: hidden behind the toggle on Small once JS is running. Without JS it
+   simply stays visible, so the links are never unreachable. */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-lead);
+  line-height: var(--leading-display);
+}
+
+.js .site-nav {
+  display: none;
+  flex-basis: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: var(--space-4);
+}
+
+.js .site-nav.is-open {
+  display: flex;
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.js .site-nav__list {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.site-nav__list a {
+  text-decoration: none;
+}
+
+.site-nav__list a:hover,
+.site-nav__list a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  color: var(--color-ink);
+  background: var(--color-accent);
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--color-accent), var(--color-black) 10%);
+}
+
+.button__icon {
+  flex-shrink: 0;
+}
+
+@media (min-width: 800px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .site-nav,
+  .js .site-nav {
+    display: flex;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .js .site-nav__list {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+}
+
+/* Hero ------------------------------------------------------------------- */
+/* Not part of the Small design — shown from Medium up. */
+.hero {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-hero-gap);
+    padding: var(--space-6);
+    background: var(--color-hero);
+  }
+}
+
+.hero__title {
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+  color: var(--color-black);
+}
+
+.hero__text {
+  max-width: 900px;
+  font-size: var(--text-lead);
+}
+
+/* Card grid -------------------------------------------------------------- */
+.card-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: 17px var(--space-4) var(--space-4); /* 17px = gap under nav in Small */
+}
+
+@media (min-width: 800px) {
+  .card-group {
+    grid-template-columns: repeat(3, 1fr);
+    padding: var(--space-7);
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-group {
+    grid-template-columns: repeat(4, 1fr);
+    padding: var(--space-6) var(--space-7);
+  }
+}
+
+/* Card ------------------------------------------------------------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+
+.card__img {
+  width: 100%;
+  aspect-ratio: 684 / 389;
+  object-fit: cover;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+}
+
+.card__title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+}
+
+/* Footer ----------------------------------------------------------------- */
+/* Not part of the Small design — shown from Medium up. */
+.site-footer {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .site-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-footer-y) var(--space-6);
+    color: var(--color-white);
+    background: var(--color-ink);
+  }
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-hero-gap);
+  font-style: normal;
+}
+
+.contact__title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+}
+
+.site-footer__link {
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  text-decoration: underline;
+}

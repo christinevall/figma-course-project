@@ -1,0 +1,812 @@
+/* ==========================================================================
+   style.css
+   ==========================================================================
+
+   This is the ONLY CSS file. It holds every variable and every style for
+   index.html. Read it from top to bottom. It follows the same order as the
+   Figma file:
+
+     PART 1 · VARIABLES      the Figma variables panel (5 collections)
+     PART 2 · TEXT STYLES    the Figma text styles
+     PART 3 · BASE           browser clean-up (nothing to do with Figma)
+     PART 4 · COMPONENTS     the Figma components, one block each
+     PART 5 · BREAKPOINTS    the Figma frames Desktop / Tablet / Mobile
+
+   --------------------------------------------------------------------------
+   BEGINNER NOTES: how to read CSS variables
+   --------------------------------------------------------------------------
+
+   1. SETTING a variable. Its name starts with two dashes:
+        --color-brand-500: #ff6330;
+
+   2. USING a variable. Wrap its name in var( ):
+        color: var(--color-brand-500);
+
+   3. The NAMING RULE. It's the Figma name with every "/" turned into "-":
+        Figma   color/brand/500    →   CSS   --color-brand-500
+        Figma   text/default       →   CSS   --text-default
+      So you can copy a name from the code, search for it in Figma, and
+      find the same thing (and the other way round).
+
+   4. ":root" means "the whole page". A variable set on :root can be used
+      everywhere.
+
+   5. ALIASES. A variable can point to another variable, like in Figma:
+        --text-default: var(--color-neutral-900);
+      In Figma this shows as a chip with the other variable's name in it,
+      not a hex code.
+
+   6. MODES. In Figma you switch a mode on a frame (for example lg / md / sm,
+      or light / dark). In CSS you redefine the variable further down, inside
+      a condition:
+        @media (max-width: 799px) { ... }   → when the screen is narrow
+        [data-theme="dark"] { ... }         → when the HTML says "dark"
+      Everything that uses the variable updates by itself.
+
+   7. Numbers. In Figma sizes have no unit. In CSS they need one: px.
+      I kept px so you can compare with Figma 1:1.
+
+   8. Comments like this one are notes for people. The browser skips them.
+      They start with a slash-star and end with a star-slash.
+
+   Values were read directly from the Figma file (variables panel via the
+   Figma plugin API), not copied from screenshots.
+   Anything that is NOT a variable in Figma is marked:  raw in Figma
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   PART 1 · VARIABLES
+   ==========================================================================
+
+   In Figma there are 5 variable collections. Each one gets its own block
+   below, with the collection name in the heading.
+
+   PRIMITIVES and SEMANTICS: two layers
+   - PRIMITIVES are the raw values: every colour, every size, named after
+     WHAT they are (color/neutral/900 = a very dark grey).
+   - SEMANTICS say what a value is FOR (text/default = the normal text
+     colour). They point to a primitive.
+   Components only use SEMANTIC colours. To change the brand colour you change
+   the primitive once, and every semantic colour that points to it follows.
+   ========================================================================== */
+
+:root {
+
+  /* ------------------------------------------------------------------------
+     Collection: "color primitives"
+     Modes: default (only one)
+     Type: colour
+     The palette. Not used by components directly, only by the "color"
+     collection further down.
+     ------------------------------------------------------------------------ */
+
+  /* color/brand: the orange ramp. 100 = lightest, 900 = darkest */
+  --color-brand-100: #ffede5;
+  --color-brand-200: #ffccb8;
+  --color-brand-300: #ffa585;
+  --color-brand-400: #ff8556;
+  --color-brand-500: #ff6330;   /* the main brand orange (the logo) */
+  --color-brand-600: #e54d1a;
+  --color-brand-700: #b33b14;
+  --color-brand-800: #80290d;
+  --color-brand-900: #4d1707;
+
+
+  /* color/neutral: the grey ramp. 000 = white, 999 = black */
+  --color-neutral-000: #ffffff;
+  --color-neutral-100: #f7f7f7;
+  --color-neutral-200: #e8e8e8;
+  --color-neutral-300: #d1d1d1;
+  --color-neutral-400: #a0a0a0;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #3d3d3d;
+  --color-neutral-800: #2c2c2c;
+  --color-neutral-900: #161616;
+  --color-neutral-999: #000000;
+
+
+  /* ------------------------------------------------------------------------
+     Collection: "color"   (the SEMANTIC colours)
+     Modes: light / dark
+     Type: colour. Every value is an ALIAS: it points to a colour primitive.
+
+     This block is mode "light". Mode "dark" is further down, under
+     [data-theme="dark"].
+     ------------------------------------------------------------------------ */
+
+  /* text/…: colours for text */
+  --text-default:  var(--color-neutral-900);   /* normal text */
+  --text-muted:    var(--color-neutral-600);   /* quieter text (not used on this page) */
+  --text-inverse:  var(--color-neutral-000);   /* text on a dark background (footer) */
+  --text-accent:   var(--color-brand-500);     /* orange text (not used on this page) */
+  --text-disabled: var(--color-neutral-400);   /* (not used on this page) */
+
+  /* surface/…: background colours for frames and sections */
+  --surface-default:       var(--color-neutral-000);  /* page background */
+  --surface-raised:        var(--color-neutral-100);  /* light grey band (every 2nd project) */
+  --surface-inverse:       var(--color-neutral-900);  /* dark footer */
+  --surface-accent-subtle: var(--color-brand-100);    /* (not used on this page) */
+
+  /* border/…: stroke colours */
+  --border-default: var(--color-neutral-300);   /* (not used on this page) */
+  --border-strong:  var(--color-neutral-900);   /* line above each skill */
+  --border-accent:  var(--color-brand-500);     /* (not used on this page) */
+  --border-focus:   var(--color-brand-500);     /* outline when you tab to a link */
+
+  /* action/primary/…: the dark, filled button */
+  --action-primary-default:  var(--color-neutral-800);
+  --action-primary-hover:    var(--color-neutral-700);
+  --action-primary-pressed:  var(--color-neutral-900);
+  --action-primary-disabled: var(--color-neutral-200);   /* (not used on this page) */
+  --action-primary-text:     var(--color-neutral-000);
+
+  /* action/secondary/…: the outlined button */
+  --action-secondary-default: var(--color-neutral-000);
+  --action-secondary-hover:   var(--color-neutral-100);
+  --action-secondary-pressed: var(--color-neutral-200);
+  --action-secondary-text:    var(--color-neutral-900);
+
+
+  /* ------------------------------------------------------------------------
+     Collection: "text primitives"
+     Modes: lg (>1280) / md (>800) / sm (<800)
+     Types: string (font family), number (sizes and weights)
+
+     This block is mode "lg" (desktop). The md and sm values are in
+     PART 5 · BREAKPOINTS at the bottom of this file.
+     ------------------------------------------------------------------------ */
+
+  /* font-family/…  (Poppins loads from Google Fonts, see index.html) */
+  --font-family-sans: "Poppins", sans-serif;
+  /*                             ↑ backup font, in case Poppins can't load */
+
+  /* font-weight/…  (400 = regular, 600 = semibold, 700 = bold) */
+  --font-weight-regular:  400;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* font-size/…            lg     (md / sm are in PART 5) */
+  --font-size-100: 16px;  /* 16  → body text, buttons, links */
+  --font-size-200: 24px;  /* 24  → caption, small headline */
+  --font-size-300: 40px;  /* 40  → project titles */
+  --font-size-400: 48px;  /* 48  → "About me", "Skills" */
+  --font-size-500: 56px;  /* 56  → (not used on this page) */
+  --font-size-600: 80px;  /* 80  → the big hero headline */
+
+
+  /* ------------------------------------------------------------------------
+     Collection: "space primitives"
+     Modes: default (only one)
+     Type: number. Used for padding and gaps (auto layout spacing).
+     ------------------------------------------------------------------------ */
+
+  --space-100: 4px;
+  --space-200: 8px;
+  --space-300: 12px;
+  --space-400: 16px;
+  --space-500: 24px;
+  --space-600: 32px;
+  --space-700: 48px;
+  --space-800: 64px;
+  --space-900: 80px;
+
+
+  /* ------------------------------------------------------------------------
+     Collection: "radius primitives"
+     Modes: default (only one)
+     Type: number. Used for corner radius.
+     ------------------------------------------------------------------------ */
+
+  --radius-md: 8px;
+
+
+  /* ------------------------------------------------------------------------
+     NOT from this file: a variable from ANOTHER Figma library
+     "padding-left-right" is linked in from a different Figma file (remote).
+     Only two frames use it. Values read: 64 (desktop), 24 (mobile).
+     The tablet value could not be checked, so it stays 64. See GAPS.md.
+     ------------------------------------------------------------------------ */
+
+  --padding-left-right: 64px;
+}
+
+
+/* --------------------------------------------------------------------------
+   Collection "color" · mode DARK
+   Only the SEMANTIC colours change. They point to other primitives.
+   The primitives themselves stay the same.
+
+   To try it: in index.html change  <html lang="en">
+                                to  <html lang="en" data-theme="dark">
+   -------------------------------------------------------------------------- */
+
+[data-theme="dark"] {
+  --text-default:  var(--color-brand-100);
+  --text-muted:    var(--color-neutral-400);
+  --text-inverse:  var(--color-neutral-900);
+  --text-accent:   var(--color-brand-500);
+  --text-disabled: var(--color-neutral-600);
+
+  --surface-default:       var(--color-neutral-900);
+  --surface-raised:        var(--color-neutral-800);
+  --surface-inverse:       var(--color-neutral-100);
+  --surface-accent-subtle: var(--color-brand-900);
+
+  --border-default: var(--color-neutral-700);
+  --border-strong:  var(--color-neutral-400);
+  --border-accent:  var(--color-brand-500);
+  --border-focus:   var(--color-brand-400);
+
+  --action-primary-default:  var(--color-neutral-100);
+  --action-primary-hover:    var(--color-neutral-200);
+  --action-primary-pressed:  var(--color-neutral-300);
+  --action-primary-disabled: var(--color-neutral-700);
+  --action-primary-text:     var(--color-neutral-900);
+
+  --action-secondary-default: var(--color-neutral-900);
+  --action-secondary-hover:   var(--color-neutral-800);
+  --action-secondary-pressed: var(--color-neutral-700);
+  --action-secondary-text:    var(--color-neutral-100);
+}
+
+
+
+/* ==========================================================================
+   PART 2 · TEXT STYLES
+   ==========================================================================
+
+   Each Figma text style becomes a CSS class (a name starting with a dot).
+   Naming rule again: "/" becomes "-".
+     Figma text style   font/headline/md   →   class="font-headline-md"
+
+   Every text style is built ONLY from variables in PART 1. That's how it is
+   in Figma too: size, weight and family are all bound to variables.
+   So when font-size/400 changes on mobile, every style using it changes.
+
+   Two things Figma writes differently from CSS:
+   - Line height:    Figma 145%   →  CSS 1.45     (Figma "Auto" → CSS normal)
+   - Letter spacing: Figma -2%    →  CSS -0.02em  (em = % of the font size)
+
+   The class says how the text LOOKS. The HTML tag (h1, h2, p…) says what
+   the text IS for the page structure. They are independent, like in Figma:
+   "headline/md" is a look, not an h2.
+   ========================================================================== */
+
+/* font/display/md → the huge hero headline */
+.font-display-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-600);
+  line-height: 1.2;              /* 120% */
+  letter-spacing: -0.02em;       /* -2% */
+  text-transform: uppercase;     /* Figma: text case "UPPER" */
+}
+
+/* font/headline/lg → "About me", "Skills" */
+.font-headline-lg {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-400);
+  line-height: 1.45;             /* 145% */
+  letter-spacing: -0.02em;       /* -2% */
+}
+
+/* font/headline/md → project titles */
+.font-headline-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-300);
+  line-height: 1.25;             /* 125% */
+  letter-spacing: -0.02em;       /* -2% */
+}
+
+/* font/headline/sm → skill titles */
+.font-headline-sm {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-200);
+  line-height: 1.45;             /* 145% */
+  letter-spacing: -0.005em;      /* -0.5% */
+}
+
+/* font/caption/md → the name above the hero headline */
+.font-caption-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-200);
+  line-height: 1.45;             /* 145% */
+  letter-spacing: -0.005em;      /* -0.5% */
+}
+
+/* font/body/md/default → normal running text */
+.font-body-md-default {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-100);
+  line-height: 1.7;              /* 170% */
+  letter-spacing: -0.005em;      /* -0.5% */
+}
+
+/* font/body/md/strong → bold running text (not used on this page) */
+.font-body-md-strong {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-100);
+  line-height: 1.7;              /* 170% */
+  letter-spacing: -0.005em;      /* -0.5% */
+}
+
+/* font/link/md → "find out more →" */
+.font-link-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-100);
+  line-height: 1.7;              /* 170% */
+  letter-spacing: -0.02em;       /* -2% */
+}
+
+/* font/link/inline → a link inside running text (not used on this page) */
+.font-link-inline {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-100);
+  line-height: 1.7;              /* 170% */
+  letter-spacing: -0.005em;      /* -0.5% */
+}
+
+/* font/button/md → text inside buttons */
+.font-button-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-100);
+  line-height: normal;           /* Figma: Auto */
+  letter-spacing: 0;             /* 0% */
+}
+
+/* font/navigation/md → the menu links. Same values as the button style, but
+   a separate style in Figma, so a separate class here too. */
+.font-navigation-md {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-100);
+  line-height: normal;           /* Figma: Auto */
+  letter-spacing: 0;             /* 0% */
+}
+
+
+
+/* ==========================================================================
+   PART 3 · BASE
+   ==========================================================================
+   Not from Figma. Browsers add their own margins and sizes to some tags.
+   These lines remove them, so the page starts as clean as a Figma frame.
+   ========================================================================== */
+
+/* Width and height include padding and border, like Figma frames do */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-default);
+  color: var(--text-default);
+  font-family: var(--font-family-sans);
+}
+
+/* Remove the browser's default spacing around headings, text and lists */
+h1, h2, h3, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;   /* no bullet points */
+}
+
+img {
+  display: block;
+  max-width: 100%;    /* images never get wider than their box */
+}
+
+a {
+  color: inherit;     /* links take the text colour around them */
+}
+
+/* The outline you see when you move through the page with the Tab key.
+   Uses the variable border/focus. */
+:focus-visible {
+  outline: 2px solid var(--border-focus);   /* 2px: raw, my choice */
+  outline-offset: 4px;                      /* raw, my choice */
+}
+
+/* "container": the frame inside every Figma component that stops the
+   content getting wider than 1200px and keeps it centred. */
+.container {
+  width: 100%;
+  max-width: 1200px;    /* raw in Figma */
+  margin-inline: auto;  /* centre it: equal space left and right */
+}
+
+
+
+/* ==========================================================================
+   PART 4 · COMPONENTS
+   ==========================================================================
+   One block per Figma component, in the order they appear on the page.
+
+   Auto layout in Figma = "display: flex" in CSS:
+     Figma direction  horizontal / vertical  →  flex-direction: row / column
+     Figma gap        (space between items)  →  gap
+     Figma padding                           →  padding
+     Figma "Fill container"                  →  flex: 1
+
+   Rule: colours and spacing come from PART 1 variables, written var(--…).
+   A number without var() means Figma has a raw number there, not a
+   variable. Those are marked "raw in Figma".
+   ========================================================================== */
+
+
+/* ---------- Button ----------------------------------------------------------
+   Figma component "Button", property variant = primary / secondary          */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-400) var(--space-500);   /* 16 top/bottom, 24 left/right */
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* variant = primary: filled */
+.button--primary {
+  background: var(--action-primary-default);
+  color: var(--action-primary-text);
+}
+.button--primary:hover  { background: var(--action-primary-hover); }    /* mouse over */
+.button--primary:active { background: var(--action-primary-pressed); }  /* while clicking */
+
+/* variant = secondary: outlined */
+.button--secondary {
+  border: 3px solid var(--action-primary-default);   /* 3px: raw in Figma */
+  color: var(--action-secondary-text);
+}
+.button--secondary:hover  { background: var(--action-secondary-hover); }
+.button--secondary:active { background: var(--action-secondary-pressed); }
+
+
+/* ---------- Navigation ------------------------------------------------------
+   Figma component "Navigation", breakpoint = desktop / mobile              */
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* logo left, links right */
+  padding: var(--space-500) var(--space-600);   /* 24 top/bottom, 32 left/right */
+  background: var(--surface-default);
+}
+
+.navigation__logo {
+  width: 48px;    /* raw in Figma */
+  height: 48px;   /* raw in Figma */
+}
+
+.navigation__items {
+  display: flex;
+  align-items: center;
+  gap: 54px;      /* raw in Figma */
+}
+
+.navigation__link {
+  color: var(--text-default);
+  text-decoration: none;
+}
+.navigation__link:hover {
+  text-decoration: underline;
+}
+
+/* The burger icon. Its lines use the variable border/strong, like in
+   Figma, so the icon turns light in dark mode. That's why the icon's code
+   sits in index.html instead of an image file: an <img> can't take colours
+   from the CSS. */
+.navigation__menu-icon {
+  display: block;
+  stroke: var(--border-strong);
+}
+
+/* The mobile menu (burger icon) is hidden on bigger screens.
+   PART 5 switches it on for mobile. */
+.navigation__menu {
+  display: none;
+}
+
+
+/* ---------- Hero ------------------------------------------------------------
+   Figma component "Hero"                                                   */
+
+.hero {
+  padding: var(--space-600);
+  background: var(--surface-default);
+  color: var(--text-default);
+  text-align: center;
+}
+
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+}
+
+
+/* ---------- ProjectCard -----------------------------------------------------
+   Figma component "ProjectCard", used 4 times.
+   Every second one has a grey background (the "bg" layer in Figma).       */
+
+.project-card {
+  padding: var(--space-600);
+  background: var(--surface-default);
+  color: var(--text-default);
+}
+
+/* the grey version */
+.project-card--raised {
+  background: var(--surface-raised);
+}
+
+.project-card .container {
+  display: flex;
+  gap: var(--space-600);
+}
+
+/* image and text each take half of the row ("Fill container" in Figma) */
+.project-card__media,
+.project-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-card__media {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* Figma: 160 × 90 */
+  object-fit: cover;      /* fill the box, crop what doesn't fit */
+}
+
+.project-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;              /* raw in Figma (tablet and mobile use space/400) */
+}
+
+.project-card__link {
+  color: var(--action-secondary-text);
+  text-decoration: none;
+}
+.project-card__link:hover {
+  text-decoration: underline;
+}
+
+
+/* ---------- About -----------------------------------------------------------
+   Figma component "About"                                                  */
+
+.about {
+  padding: 66px 52px 53px var(--padding-left-right);  /* top right bottom left. Only "left" is a variable in Figma */
+  background: var(--surface-default);
+  color: var(--text-default);
+}
+
+.about .container {
+  display: flex;
+  align-items: center;
+  gap: 95px;              /* raw in Figma */
+}
+
+.about__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-500);
+}
+
+.about__media {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;    /* square */
+  object-fit: cover;
+}
+
+
+/* ---------- Skills + SkillItem ----------------------------------------------
+   Figma components "Skills" and "SkillItem"                                */
+
+.skills {
+  padding: var(--space-700) var(--space-600);   /* 48 top/bottom, 32 left/right */
+  background: var(--surface-default);
+  color: var(--text-default);
+}
+
+.skills .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-700);
+}
+
+.skills__group {
+  display: flex;
+  gap: var(--space-700);
+}
+
+.skill-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+  padding-block: var(--space-400);            /* top and bottom */
+  border-top: 1px solid var(--border-strong); /* 1px: raw in Figma */
+}
+
+
+/* ---------- Footer ----------------------------------------------------------
+   Figma component "Footer", breakpoint = tablet / mobile                   */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-500);
+  padding: var(--space-500);
+  background: var(--surface-inverse);   /* dark background… */
+  color: var(--text-inverse);           /* …so the text is light */
+}
+
+.footer a {
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* ==========================================================================
+   PART 5 · BREAKPOINTS
+   ==========================================================================
+   In Figma there are three frames: Desktop, Tablet, Mobile.
+   The "text primitives" collection has three modes to match:
+     lg (>1280)   md (>800)   sm (<800)
+
+   In CSS the SCREEN WIDTH picks the mode. "@media (max-width: 1279px)" means
+   "only when the window is 1279px wide or less".
+
+   Each block does two things:
+   1. Switches the variable MODE (new values for font-size/…).
+   2. Changes the LAYOUT (what the Figma Tablet / Mobile variants change).
+   Only what changes is listed. Everything else stays as above.
+   ========================================================================== */
+
+
+/* ---------- mode md (>800) · Figma frame "Tablet" -------------------------- */
+
+@media (max-width: 1279px) {
+
+  /* 1 · Collection "text primitives" → mode md */
+  :root {
+    --font-size-300: 32px;   /* lg 40 → md 32 */
+    --font-size-400: 40px;   /* lg 48 → md 40 */
+    --font-size-600: 64px;   /* lg 80 → md 64 */
+    /* 100, 200 and 500 are the same as lg */
+  }
+
+  /* 2 · Layout */
+  .navigation {
+    padding: var(--space-400) var(--space-500);   /* smaller: 16 / 24 */
+  }
+  .navigation__items {
+    gap: var(--space-700);   /* tablet uses the variable (48), desktop has raw 54 */
+  }
+
+  .project-card__content {
+    gap: var(--space-400);   /* tablet uses the variable (16) */
+  }
+}
+
+
+/* ---------- mode sm (<800) · Figma frame "Mobile" -------------------------- */
+
+@media (max-width: 799px) {
+
+  /* 1 · Collection "text primitives" → mode sm */
+  :root {
+    --font-size-200: 16px;   /* md 24 → sm 16 */
+    --font-size-300: 32px;   /* same as md */
+    --font-size-400: 32px;   /* md 40 → sm 32 */
+    --font-size-500: 40px;   /* md 56 → sm 40 */
+    --font-size-600: 48px;   /* md 64 → sm 48 */
+
+    /* the remote library variable, mobile value */
+    --padding-left-right: 24px;
+  }
+
+  /* 2 · Layout: everything stacks into one column */
+
+  /* Navigation: hide the links, show the burger menu */
+  .navigation__items {
+    display: none;
+  }
+  .navigation__menu {
+    display: block;
+    position: relative;
+  }
+  .navigation__menu summary {
+    list-style: none;   /* hide the little triangle browsers add */
+    cursor: pointer;
+  }
+  .navigation__menu summary::-webkit-details-marker {
+    display: none;      /* same, for Safari */
+  }
+  /* When the menu is open, show the links in a column under the icon.
+     This open menu is NOT designed in Figma, see GAPS.md */
+  .navigation__menu[open] .navigation__items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-500);
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-400));
+    padding: var(--space-500);
+    background: var(--surface-default);
+    border: 1px solid var(--border-default);   /* my choice */
+    border-radius: var(--radius-md);
+  }
+
+  .hero {
+    padding: var(--space-600) var(--space-500);   /* 32 top/bottom, 24 left/right */
+  }
+
+  .project-card {
+    padding: var(--space-500);
+  }
+  .project-card .container {
+    flex-direction: column;   /* image above text */
+  }
+
+  .about {
+    padding: 39px var(--space-500);   /* 39 top/bottom: raw in Figma */
+  }
+  .about .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 27px;                /* raw in Figma */
+  }
+  .about__content {
+    gap: 27px;                /* raw in Figma */
+  }
+  .about__media {
+    order: -1;                /* photo moves above the text */
+  }
+  .about .button {
+    align-self: stretch;      /* full-width button */
+  }
+
+  .skills {
+    padding: var(--space-700) var(--padding-left-right);
+  }
+  .skills__group {
+    flex-direction: column;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+}
