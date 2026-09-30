@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  index.html — the CONTENT of the page.
+  HTML says WHAT is on the page (headings, text, links, cards).
+  How it LOOKS (colours, sizes, spacing) lives in styles.css.
+  Keeping those two apart makes each file easier to read and change.
+
+  Built from the Figma frame "Homepage" (file: showcase, node 1:36).
+-->
+<html lang="en">
+<head>
+  <!-- Tells the browser which characters to expect, so letters like ä or é show correctly -->
+  <meta charset="UTF-8">
+
+  <!-- Makes the page behave properly on phones instead of showing a tiny zoomed-out desktop page -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- The text shown in the browser tab -->
+  <title>Studio</title>
+
+  <!--
+    Loads the "Inter" font from Google Fonts — the same font used in the Figma file.
+    We only ask for the three weights the design uses: 400 (regular), 600 (semi bold), 700 (bold).
+    The two "preconnect" lines just make the font download a little faster.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Connects this page to our stylesheet. Without this line the page would be unstyled. -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!--
+    ============================================================
+    NAVIGATION BAR (Figma: "Navigation")
+    <header> is the HTML tag meant for the top area of a page.
+    ============================================================
+  -->
+  <header class="nav">
+    <!-- An inner box that keeps the content 1200px wide, like the Figma frame -->
+    <div class="nav__inner">
+
+      <!-- Logo: an orange square plus the word "Studio". Clicking it goes to the homepage. -->
+      <a class="logo" href="#">
+        <!-- The orange square is purely decorative, so aria-hidden hides it from screen readers -->
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__text">Studio</span>
+      </a>
+
+      <!-- <nav> tells browsers and screen readers "this is the main menu" -->
+      <nav class="nav__links" aria-label="Main">
+        <!--
+          Each menu item is a link (<a>). href="#" means "goes nowhere yet" —
+          swap it for a real page later, e.g. href="work.html".
+          The "is-active" class marks the page you're on (it gets the orange underline).
+          aria-current="page" says the same thing to screen readers.
+        -->
+        <a class="nav-link is-active" href="#" aria-current="page">Home</a>
+        <a class="nav-link" href="#">Work</a>
+        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="#">Contact</a>
+      </nav>
+
+      <!-- The orange "Sign up" button. It's a link styled to look like a button. -->
+      <a class="button button--primary" href="#">Sign up</a>
+    </div>
+  </header>
+
+
+  <!--
+    ============================================================
+    MAIN CONTENT
+    <main> wraps the most important content of the page.
+    ============================================================
+  -->
+  <main class="page">
+
+    <!-- HERO: the big headline and the sentence below it -->
+    <section class="hero">
+      <!-- <h1> is the most important heading. A page should have only one. -->
+      <h1 class="hero__title">I am a wireframe</h1>
+      <p class="hero__text">I have no variables or auto layout, but you can play with to get started.</p>
+    </section>
+
+    <!--
+      CARDS: three cards side by side.
+      All three share the class "card". The middle one also has "card--featured",
+      which switches it to the dark version (Figma variant: Style = Featured).
+    -->
+    <section class="cards">
+
+      <!-- Card 1: Projects (Figma variant: Style = Default) -->
+      <article class="card">
+        <!-- Grey placeholder where a picture will go later -->
+        <div class="card__image" aria-hidden="true"></div>
+        <div class="card__body">
+          <h2 class="card__title">Projects</h2>
+          <p class="card__text">Selected work from the last few years.</p>
+          <a class="button button--secondary" href="#">Read more</a>
+        </div>
+      </article>
+
+      <!-- Card 2: Workshops (Figma variant: Style = Featured — dark card, orange button) -->
+      <article class="card card--featured">
+        <div class="card__image" aria-hidden="true"></div>
+        <div class="card__body">
+          <h2 class="card__title">Workshops</h2>
+          <p class="card__text">Learn Figma components step by step.</p>
+          <a class="button button--primary" href="#">Read more</a>
+        </div>
+      </article>
+
+      <!-- Card 3: Blog (Figma variant: Style = Default) -->
+      <article class="card">
+        <div class="card__image" aria-hidden="true"></div>
+        <div class="card__body">
+          <h2 class="card__title">Blog</h2>
+          <p class="card__text">Notes on design systems and tools.</p>
+          <a class="button button--secondary" href="#">Read more</a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+</body>
+</html>

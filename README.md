@@ -6,6 +6,7 @@ The example files for the course. One folder per lesson. You can look, change an
 
 Click the lesson you need. The ZIP downloads straight away:
 
+- [01 Starting with MCP](https://github.com/christinevall/figma-course-project/releases/latest/download/01-Starting-with-MCP.zip)
 - [02 Figma to CSS](https://github.com/christinevall/figma-course-project/releases/latest/download/02-Figma-to-CSS.zip)
 - [03 Auto Layout to code example](https://github.com/christinevall/figma-course-project/releases/latest/download/03-Auto-Layout-to-code-example.zip)
 - [04 Figma to Design System](https://github.com/christinevall/figma-course-project/releases/latest/download/04-Figma-to-Design-System.zip)
@@ -22,11 +23,12 @@ No GitHub account needed.
 
 | Folder | What it is | How to open it |
 | --- | --- | --- |
+| `01 Starting with MCP` | A studio homepage, built from Figma via MCP in plain HTML and CSS | Double-click `index.html` |
 | `02 Figma to CSS` | A portfolio page, built from Figma in plain HTML and CSS | Double-click `index.html`. It opens in your browser |
 | `03 Auto Layout to code example` | A blog page: Figma Auto Layout turned into CSS | Double-click `index.html` |
 | `04 Figma to Design System` | The same portfolio as React components, with Storybook | Needs a few steps, see below |
 
-Each folder has a `GAPS.md` or `README.md`: what was built, and what Figma didn't answer.
+Each folder has a `GAPS.md`, `gaps.md` or `README.md`: what was built, and what Figma didn't answer.
 
 ### Folder 04: run it on your computer
 

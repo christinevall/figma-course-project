@@ -1,0 +1,291 @@
+/*
+  styles.css — how the page LOOKS.
+
+  How to read a CSS rule:
+    .card {            <- "selector": which HTML elements this applies to (here: class="card")
+      color: red;      <- "property: value;" — one visual setting
+    }
+
+  All numbers come from the Figma frame "Homepage" (1200 × 800 px).
+*/
+
+
+/* ============================================================
+   1. COLOURS & SHARED VALUES
+   These are "CSS variables" (custom properties). We name each colour once here
+   and reuse the name everywhere below, e.g. var(--color-orange).
+   Change a colour here and it updates across the whole page.
+   Note: the Figma file has no variables, so these names are my own invention.
+   ============================================================ */
+:root {
+  --color-orange:      #ff642f;  /* logo, primary buttons, active underline */
+  --color-ink:         #1e1e2a;  /* dark text, featured card background */
+  --color-button-text: #1e1e1e;  /* text on orange buttons */
+  --color-outline:     #292929;  /* outline + text of the white "Read more" buttons */
+  --color-muted:       #6b6b7b;  /* grey body text and inactive menu links */
+  --color-muted-dark:  #b8b8c8;  /* grey text on the dark card */
+  --color-border:      #dadae3;  /* thin lines around cards and under the nav */
+  --color-page:        #f5f5f8;  /* light grey page background */
+  --color-white:       #ffffff;
+  --color-image:       #bab9c3;  /* image placeholder on white cards */
+  --color-image-dark:  #6c6c70;  /* image placeholder on the dark card */
+
+  --page-width: 1200px;          /* width of the Figma frame */
+  --page-gutter: 40px;           /* space between the page edge and the content */
+}
+
+
+/* ============================================================
+   2. BASIC RESET
+   Browsers add their own default spacing to things like headings and
+   paragraphs. We remove it so only the spacing from the design is used.
+   ============================================================ */
+
+/* "*" means every element. border-box makes width/height INCLUDE the border
+   and padding — that's how Figma measures boxes too, so the numbers match. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default outer spacing from headings and paragraphs */
+h1, h2, p {
+  margin: 0;
+}
+
+body {
+  margin: 0;                                   /* browsers add 8px around the page by default */
+  background-color: var(--color-page);         /* light grey background from the design */
+  font-family: "Inter", Arial, sans-serif;     /* Inter first; Arial if Inter can't load */
+  color: var(--color-ink);
+  line-height: normal;                         /* matches Figma's "Auto" line height */
+  -webkit-font-smoothing: antialiased;         /* makes text on Mac look closer to Figma */
+}
+
+/* Links: remove the default blue colour and underline — we style them ourselves */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   3. NAVIGATION BAR
+   ============================================================ */
+
+/* The white bar across the top, 80px tall, with a thin line underneath */
+.nav {
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* The inner row. "display: flex" lines its children up side by side. */
+.nav__inner {
+  display: flex;
+  align-items: center;                   /* centre everything vertically */
+  max-width: var(--page-width);          /* never wider than the design */
+  height: 79px;                          /* 80px minus the 1px bottom line = 80px total */
+  margin: 0 auto;                        /* "auto" left/right = centred on wide screens */
+  padding: 0 var(--page-gutter);         /* 40px space on the left and right */
+}
+
+/* Logo: orange square + "Studio", with 12px between them */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;   /* pushes everything after the logo to the right side */
+}
+
+.logo__mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;   /* rounded corners */
+  background-color: var(--color-orange);
+}
+
+.logo__text {
+  font-size: 20px;
+  font-weight: 700;     /* 700 = bold */
+}
+
+/* The group of menu links */
+.nav__links {
+  display: flex;
+  margin-right: 20px;   /* gap between "Contact" and the Sign up button */
+}
+
+/* One menu link: a 90 × 32 box with the word centred at the top */
+.nav-link {
+  position: relative;          /* lets us place the underline relative to this link (see below) */
+  width: 90px;
+  height: 32px;
+  padding-top: 4px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+/* The link for the current page: darker and semi bold */
+.nav-link.is-active {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* The small orange underline under the active link.
+   "::after" creates an extra decorative box without adding any HTML. */
+.nav-link.is-active::after {
+  content: "";                          /* required, or the box won't appear */
+  position: absolute;                   /* place it exactly... */
+  left: 50%;                            /* ...in the horizontal middle */
+  bottom: 1px;                          /* ...near the bottom of the link */
+  transform: translateX(-50%);          /* shift back by half its width so it's truly centred */
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--color-orange);
+}
+
+/* Hover: when the mouse is over a link, darken it a little.
+   Not in the Figma file — see gaps.md. */
+.nav-link:hover {
+  color: var(--color-ink);
+}
+
+
+/* ============================================================
+   4. BUTTONS
+   One base style (.button) plus two looks: primary (orange) and
+   secondary (white with an outline). Matches the Figma "Button" component.
+   ============================================================ */
+.button {
+  display: inline-flex;          /* lets us centre the text inside the box */
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;              /* semi bold */
+}
+
+/* Orange button ("Sign up", and "Read more" on the dark card) */
+.button--primary {
+  background-color: var(--color-orange);
+  color: var(--color-button-text);
+}
+
+/* White button with a dark outline ("Read more" on white cards) */
+.button--secondary {
+  background-color: var(--color-white);
+  border: 1.5px solid var(--color-outline);
+  color: var(--color-outline);
+}
+
+/* Hover: a slight fade so buttons feel clickable. Not in the Figma file. */
+.button:hover {
+  opacity: 0.85;
+}
+
+
+/* ============================================================
+   5. PAGE AREA (everything below the navigation)
+   ============================================================ */
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;                          /* centred */
+  padding: 60px var(--page-gutter) 60px;   /* 60px from nav to headline; 40px sides; 60px at the bottom */
+}
+
+
+/* ============================================================
+   6. HERO (big headline + sentence)
+   ============================================================ */
+.hero__title {
+  font-size: 56px;
+  font-weight: 700;
+}
+
+.hero__text {
+  margin-top: 7px;                   /* space between headline and sentence, from Figma */
+  font-size: 20px;
+  color: var(--color-muted);
+}
+
+
+/* ============================================================
+   7. CARDS
+   ============================================================ */
+
+/* The row of three cards. "grid" arranges them in 3 equal columns
+   with 20px between them. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 360px);
+  gap: 20px;
+  margin-top: 60px;                  /* space between the sentence and the cards */
+}
+
+/* One card. "flex-direction: column" stacks image, title, text, button from top to bottom. */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 440px;
+  padding: 15px 15px 23px;           /* space inside the card: top, sides, bottom (plus the 1px border = 16px / 24px from the edge) */
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-white);
+}
+
+/* Grey rectangle standing in for a picture */
+.card__image {
+  height: 180px;
+  border-radius: 10px;
+  background-color: var(--color-image);
+}
+
+/* The text part of the card. It grows to fill the leftover space,
+   which lets us push the button to the very bottom (see .card .button). */
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px 8px 0;               /* 24px below the image; text sits 8px further in than the image */
+}
+
+.card__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.card__text {
+  margin-top: 11px;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+/* "margin-top: auto" soaks up all the empty space above the button,
+   so the button always sits at the bottom of the card. */
+.card .button {
+  margin-top: auto;
+}
+
+/* ---- Dark "Featured" card (the middle one) ----
+   Only the things that differ from a normal card are listed here. */
+.card--featured {
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);    /* border matches the background, so it's invisible but keeps sizes identical */
+}
+
+.card--featured .card__image {
+  background-color: var(--color-image-dark);
+}
+
+.card--featured .card__title {
+  color: var(--color-white);
+}
+
+.card--featured .card__text {
+  color: var(--color-muted-dark);
+}
